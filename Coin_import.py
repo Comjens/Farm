@@ -33,9 +33,9 @@ def collect():
     RAW['last_updated'] = pd.to_datetime(RAW['last_updated'],unit='s')
     
     # if file does not exist write header 
-    file = "RAW_"+str(datetime.date.today())+datetime.datetime.now().hour+".csv"
+    file = "RAW_"+str(datetime.date.today())+"_h"+str(datetime.datetime.now().hour)+".csv"
     if not os.path.isfile(file):
-        try
+        try:
             Temp = pd.DataFrame.read_csv("RAW_"+str(datetime.date.today()-datetime.timedelta(hours=1))+".csv")
             
         except Exception as e:
