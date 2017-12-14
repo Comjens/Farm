@@ -33,11 +33,12 @@ def collect():
     RAW['last_updated'] = pd.to_datetime(RAW['last_updated'],unit='s')
     
     # if file does not exist write header 
-    file = "RAW_"+str(datetime.date.today())+"_h"+str(datetime.datetime.now().hour)+".csv"
+    file = "data/RAW_"+str(datetime.date.today())+"_h"+str(datetime.datetime.now().hour)+".csv"
     if not os.path.isfile(file):
         try:
-            Temp = pd.DataFrame.read_csv("RAW_"+str(datetime.date.today()-datetime.timedelta(hours=1))+".csv")
-            
+            Temp = pd.DataFrame.read_csv("data/RAW_"+str(datetime.date.today())+str(datetime.datetime.now().hour-datetime.timedelta(hours=1))+".csv")
+            Temp = Temp.drop_duplicates()
+            Temp.to_csv("data/RAW_"+str(datetime.date.today())+str(datetime.datetime.now().hour-datetime.timedelta(hours=1))+".csv")
         except Exception as e:
             print("No previous file")
         RAW.to_csv(file,header ='column_names')
